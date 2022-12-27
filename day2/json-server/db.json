@@ -1,0 +1,22 @@
+{
+  "posts": [
+    {
+      "id": 4,
+      "title": "aaa",
+      "author": "aaaa"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment"
+    },
+    {
+      "id": 2,
+      "bodt": "testing2"
+    }
+  ],
+  "profile": {
+    "name": "kim"
+  }
+}
