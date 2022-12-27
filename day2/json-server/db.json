@@ -1,11 +1,5 @@
 {
-  "posts": [
-    {
-      "id": 4,
-      "title": "aaa",
-      "author": "aaaa"
-    }
-  ],
+  "posts": [],
   "comments": [
     {
       "id": 1,
