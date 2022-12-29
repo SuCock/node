@@ -20,6 +20,7 @@
         <div class="mb-3 row">
           <label for="no" class="col-sm-2 col-form-label bg-light">이름</label>
           <div class="col-sm-10">
+            <input type="hidden" id="userid" name="userid" />
             <input type="text" class="form-control" id="username" name="name" />
           </div>
         </div>
@@ -76,7 +77,8 @@
             <td>hong@aa.bb</td>
             <td>010-1111-1111</td>
             <td>대구 광역시</td>
-            <td><button>삭제</button></td>
+            <td><button id="delbtn">삭제</button></td>
+            <td><button id="selbtn">조회</button></td>
           </tr>
         </tbody>
       </table>

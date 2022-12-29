@@ -12,10 +12,30 @@ router.get("/", (req, res) => {
     res.json(results);
   });
 });
-router.get("/:id", (req, res) => {});
+//단건조회
+router.get("/:id", (req, res) => {
+  let sql = "select * from customers where id = ?";
+  const id = req.params.id;
+  pool.query(sql, id, (err, results, fields) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(results[0]);
+  });
+});
+//수정
+router.put("/:id", (req, res) => {
+  let sql = "update customers set ? where id = ?";
+  let data = [req.body, req.params.id];
+  pool.query(sql, data, (err, results, fields) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(results);
+  });
+});
 //등록
 router.post("/", (req, res) => {
-  /* req.body.sql; */
   let sql = "insert into customers set ?";
   pool.query(sql, req.body, (err, results, fields) => {
     if (err) {
@@ -25,6 +45,7 @@ router.post("/", (req, res) => {
   });
 });
 router.put("/:id", (req, res) => {});
+//삭제
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
   let sql = "delete from customers where id = ?";

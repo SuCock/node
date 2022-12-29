@@ -3,6 +3,7 @@ const url = "/customers";
 selectAll(); //전체조회
 insert(); //등록버튼에 이벤트 지정
 customerDelete();
+updateDate();
 function selectAll() {
   fetch(url)
     .then((res) => res.json())
@@ -47,13 +48,44 @@ function insert() {
   });
 }
 //수정
+function updateDate() {
+  updbtn.addEventListener("click", function (ev) {
+    let data = {
+      id: userid.value,
+      name: username.value,
+      email: email.value,
+      phone: phone.value,
+      address: address.value,
+    };
+    fetch(`${url}/${userid.value}`, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        selectAll();
+      });
+  });
+}
 
 //삭제
 function customerDelete() {
   list.addEventListener("click", function (ev) {
     if (ev.target.id == "selbtn") {
       //단건조회
-      fetch(`${url}/${id}`, {}).then().then();
+      let id = ev.target.closest("tr").getAttribute("data-id");
+      fetch(`${url}/${id}`)
+        .then((res) => res.json())
+        .then((res) => {
+          userid.value = res.id; //수정할때 id값 필수
+          username.value = res.name;
+          email.value = res.email;
+          phone.value = res.phone;
+          address.value = res.address;
+        });
     } else if (ev.target.id == "delbtn") {
       //삭제
       let id = ev.target.closest("tr").getAttribute("data-id");
