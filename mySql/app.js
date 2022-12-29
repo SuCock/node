@@ -1,28 +1,24 @@
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
-var cookieParser = require("cookie-parser");
+//var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-//const session = require("express-session");
-//const fileStore = require("session-file-store")(session);
-const cookieSession = require("cookie-session");
-
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var customersRouter = require("./routes/customers");
+
+const session = require("express-session");
+const fileStore = require("session-file-store")(session);
 
 var app = express();
-
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false })); //post방식
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-
-app.use();
+app.use(express.urlencoded({ extended: false }));
+//app.use(cookieParser());
 app.use(
   session({
     secret: "secret key",
@@ -30,22 +26,17 @@ app.use(
     saveUninitialized: true,
     coolie: {
       httpOnly: true,
-      //secure: true,
+      //secure: true,  //https일때 쿠키가 저장돼서
       maxAge: 60000, //밀리초
     },
     store: new fileStore(),
   })
 );
+app.use(express.static(path.join(__dirname, "public")));
 
-app.use(
-  cookieSession({
-    name: session,
-    keys: "key",
-    maxAge: 24 * 60 * 60 * 1000, //24시간 유지
-  })
-);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/customers", customersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
