@@ -14,6 +14,8 @@ connection.connect(); //DB 접속
 
 let sql = "update customers set ? where id = ?";
 let data = [{ email: "park@gmail.com", name: "Park" }, 4];
+//let sql = "update customers set email = ?, name = ? where id = ?";
+//let data = ["park@gmail.com", "Park", 23];
 connection.query(sql, data, (err, results, fields) => {
   if (err) {
     console.log(err);

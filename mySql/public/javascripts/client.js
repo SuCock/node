@@ -51,7 +51,7 @@ function insert() {
 function updateDate() {
   updbtn.addEventListener("click", function (ev) {
     let data = {
-      id: userid.value,
+      //id: userid.value,
       name: username.value,
       email: email.value,
       phone: phone.value,
@@ -66,7 +66,16 @@ function updateDate() {
     })
       .then((res) => res.json())
       .then((res) => {
-        selectAll();
+        if (res.r == true) {
+          alert("수정완료");
+          selectAll();
+        } else {
+          alert("수정실패");
+        }
+      })
+      //throw err 에러가 나면 catch로 온다
+      .catch(() => {
+        alert("실패");
       });
   });
 }

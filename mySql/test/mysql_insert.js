@@ -14,9 +14,9 @@ connection.connect(); //DB 접속
 
 let sql = "insert into customers set ?";
 let data = {
-  name: "Kim",
-  email: "Kim@mail.com",
-  phone: "010-3333-3333",
+  name: "choi",
+  email: "choi@mail.com",
+  phone: "010-4444-4444",
   address: "",
 };
 connection.query(sql, data, (err, results, fields) => {
@@ -25,7 +25,6 @@ connection.query(sql, data, (err, results, fields) => {
   }
   console.log(results);
 });
-
 connection.end(); //DB 접속 종료
 
 //cd test(현재 폴더위치로 이동)

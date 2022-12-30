@@ -11,9 +11,11 @@ const conn = {
 
 let connection = mysql.createConnection(conn); //DB 커넥션 생성
 connection.connect(); //DB 접속
-
-sql = "SELECT * FROM customers";
-connection.query(sql, (err, results, fields) => {
+let id = 23; //req.para
+let name = "ddd";
+let data = [id, name];
+sql = "SELECT * FROM customers where id = ? ";
+connection.query(sql, id, (err, results, fields) => {
   console.log(results);
 });
 
