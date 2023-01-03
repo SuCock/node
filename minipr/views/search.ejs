@@ -8,7 +8,7 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>home</title>
+    <title>list</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -59,26 +59,9 @@
         <!-- Blog entries-->
         <div class="col-lg-8">
           <!-- Featured blog post-->
-          <div class="card mb-4">
-            <a href="#!"
-              ><img
-                class="card-img-top"
-                src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg"
-                alt="..."
-            /></a>
-            <div class="card-body">
-              <div class="small text-muted" id="wrdate">
-                <%=home[0].wrdate%>
-              </div>
-              <h2 class="card-title" id="title"><%=home[0].title%></h2>
-              <p class="card-text" id="nickname"><%=home[0].nickname%></p>
-              <p class="card-text" id="category"><%=home[0].category%></p>
-              <a class="btn btn-primary" href="/post/<%=home[0].no%>">Post →</a>
-            </div>
-          </div>
           <!-- Nested row for non-featured blog posts-->
           <div class="row">
-            <%for (let i = 1; i < home.length; i++) {%>
+            <%for (let i = 0; i < post.length; i++) {%>
             <div class="col-lg-6">
               <!-- Blog post-->
               <div class="card mb-4">
@@ -89,11 +72,10 @@
                     alt="..."
                 /></a>
                 <div class="card-body">
-                  <div class="small text-muted"><%=home[i].wrdate%></div>
-                  <h2 class="card-title h4"><%=home[i].title%></h2>
-                  <p class="card-text"><%=home[i].nickname%></p>
-                  <p class="card-text"><%=home[i].category%></p>
-                  <a class="btn btn-primary" href="/post/<%=home[i].no%>"
+                  <div class="small text-muted"><%=post[i].wrdate%></div>
+                  <h2 class="card-title h4"><%=post[i].title%></h2>
+                  <p class="card-text"><%=post[i].nickname%></p>
+                  <a class="btn btn-primary" href="/post/<%=post[i].home_no%>"
                     >Post →</a
                   >
                 </div>

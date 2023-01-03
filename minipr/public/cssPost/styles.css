@@ -5176,7 +5176,7 @@ fieldset:disabled .btn {
 }
 
 .badge {
-  display: inline-block;
+  display: inline-block; 
   padding: 0.35em 0.65em;
   font-size: 0.75em;
   font-weight: 700;

@@ -3,9 +3,9 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-//const session = require("express-session");
-//const fileStore = require("session-file-store")(session);
-const cookieSession = require("cookie-session");
+const session = require("express-session");
+const fileStore = require("session-file-store")(session);
+/* const cookieSession = require("cookie-session"); */
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -28,7 +28,7 @@ app.use(
     secret: "secret key",
     resave: false,
     saveUninitialized: true,
-    coolie: {
+    cookie: {
       httpOnly: true,
       //secure: true,
       maxAge: 60000, //밀리초
