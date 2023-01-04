@@ -7,6 +7,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var customersRouter = require("./routes/customers");
 var booksRouter = require("./routes/books");
+var loginRouter = require("./routes/login");
 
 const session = require("express-session");
 const fileStore = require("session-file-store")(session);
@@ -39,6 +40,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/customers", customersRouter); //customers의 router가 실행되도록
 app.use("/books", booksRouter);
+app.use("/login", loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

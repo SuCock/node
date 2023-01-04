@@ -39,5 +39,20 @@ router.get("/one/:no", (req, res) => {
     res.send(post[0]);
   });
 });
-
+//수정
+router.put("/one/:no", (req, res) => {
+  let sql = "update post set? where no = ?";
+  const data = [req.body, req.params.no];
+  pool.query(sql, data, (err, post, fields) => {
+    res.send(post);
+  });
+});
+//삭제
+router.delete("/one/:no", (req, res) => {
+  let sql = "delete from post where no = ?";
+  let id = req.params.no;
+  pool.query(sql, id, (err, post, fields) => {
+    res.json(post);
+  });
+});
 module.exports = router;

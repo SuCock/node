@@ -2,7 +2,7 @@ var express = require("express");
 const pool = require("../pool");
 var router = express.Router();
 
-//영화조회
+//서치조회
 router.get("/", (req, res) => {
   sql = "SELECT * FROM home";
   pool.query(sql, (err, home, fields) => {
@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
     res.render("home.ejs", { home: home });
   });
 });
-router.post("/search", (req, res) => {
+router.post("/search/:no", (req, res) => {
   let find = req.body.search_input;
   console.log(find);
   sql = "SELECT * FROM home where title like  CONCAT('%',?,'%')";
