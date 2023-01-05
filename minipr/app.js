@@ -24,12 +24,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/home", homeRouter);
-app.use("/post", postRouter);
-app.use("/login", loginRouter);
-
 app.use(
   session({
     secret: "secret key",
@@ -43,6 +37,11 @@ app.use(
     store: new fileStore(),
   })
 );
+app.use("/", indexRouter);
+app.use("/users", usersRouter);
+app.use("/home", homeRouter);
+app.use("/post", postRouter);
+app.use("/login", loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

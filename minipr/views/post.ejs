@@ -36,9 +36,15 @@
             <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
             <li class="nav-item"><a class="nav-link" href="#!">Contant</a></li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#"
-                >login/logout</a
+             <% if (!islogin){%>
+              <a class="nav-link active" aria-current="page" href="/login"
+                >login</a
               >
+              <%}%> <% if (islogin){%>
+              <a class="nav-link active" aria-current="page" href="/login"
+                >logout</a
+              >
+              <%}%>
             </li>
           </ul>
         </div>
@@ -110,11 +116,14 @@
                   <div class="ms-3">
                     <div class="fw-bold"><%=post[i].nickname%></div>
                     <%=post[i].content%>
+          
+                      <%if(id == post[i].nickname){%>                    
                     <a class="badge bg-secondary text-decoration-none link-light btnone"
                     href="#!" data-id="<%=post[i].no%>">One</a>
                      <a class="badge bg-secondary text-decoration-none link-light btnDel"
                      data-id="<%=post[i].no%>"
-                     >Delete</a>
+                     >Delete</a> <%}%>
+              
                   </div>
                 </div>
               </div>
@@ -283,14 +292,27 @@
           });
         })
         //삭제
-          document.querySelector(".btnDel").addEventListener("click",function(ev){
-           ev.preventDefault();
-           let no = ev.target.getAttribute("data-id")
-      fetch(`/post/one/${no}`, { 
+        document.querySelector(".parent").addEventListener("click",function(ev){
+         ev.preventDefault();
+         let no = ev.target.getAttribute("data-id")
+        fetch(`/post/one/${no}`, { 
         method: "delete" })
         .then((res) =>  res.json())
         .then((res) => {alert("삭제완료")
         })
+      });
+        //로그아웃
+      btnLogout.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        fetch("/", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then(() => {
+          alert("로그아웃");
+          location.href = "/login";
+        });
       });
     </script>
   </body>

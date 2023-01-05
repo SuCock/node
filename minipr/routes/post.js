@@ -9,13 +9,19 @@ router.get("/:home_no", (req, res) => {
     console.log(home);
     pool.query(sql, req.params.home_no, (err, post, fields) => {
       console.log(post);
-      res.render("post", { home: home, post: post });
+      res.render("post", {
+        home: home,
+        post: post,
+        islogin: req.session.islogin,
+        id: req.session.userid,
+      });
     });
   });
 });
 
 router.post("/", (req, res) => {
   let sql = "insert into post set ?";
+  req.body.nickname = req.session.userid;
   pool.query(sql, req.body, (err, post, fields) => {
     console.log(err);
     console.log(post);
@@ -39,14 +45,7 @@ router.get("/one/:no", (req, res) => {
     res.send(post[0]);
   });
 });
-//수정
-router.put("/one/:no", (req, res) => {
-  let sql = "update post set? where no = ?";
-  const data = [req.body, req.params.no];
-  pool.query(sql, data, (err, post, fields) => {
-    res.send(post);
-  });
-});
+
 //삭제
 router.delete("/one/:no", (req, res) => {
   let sql = "delete from post where no = ?";
@@ -55,4 +54,18 @@ router.delete("/one/:no", (req, res) => {
     res.json(post);
   });
 });
+//수정
+router.put("/one/:no", (req, res) => {
+  let sql = "update post set? where no = ?";
+  const data = [req.body, req.params.no];
+  pool.query(sql, data, (err, post, fields) => {
+    res.send(post);
+  });
+});
+//로그아웃
+router.post("/", (req, res, next) => {
+  req.session.destroy();
+  res.redirect("/login");
+});
+
 module.exports = router;

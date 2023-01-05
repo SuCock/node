@@ -36,9 +36,15 @@
             <li class="nav-item"><a class="nav-link" href="#!">board</a></li>
             <li class="nav-item"><a class="nav-link" href="#!">Contant</a></li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#"
-                >login/logout</a
+              <% if (!islogin){%>
+              <a class="nav-link active" aria-current="page" href="/login"
+                >login</a
               >
+              <%}%> <% if (islogin){%>
+              <a class="nav-link active" aria-current="page" id="btnLogout">
+                logout</a
+              >
+              <%}%>
             </li>
           </ul>
         </div>
@@ -73,7 +79,9 @@
               <h2 class="card-title" id="title"><%=home[0].title%></h2>
               <p class="card-text" id="nickname"><%=home[0].nickname%></p>
               <p class="card-text" id="category"><%=home[0].category%></p>
-              <a class="btn btn-primary" href="/post/<%=home[0].no%>">Post →</a>
+              <a class="btn btn-primary" href="/post/<%=home[0].no%>"
+                >comment →</a
+              >
             </div>
           </div>
           <!-- Nested row for non-featured blog posts-->
@@ -94,7 +102,7 @@
                   <p class="card-text"><%=home[i].nickname%></p>
                   <p class="card-text"><%=home[i].category%></p>
                   <a class="btn btn-primary" href="/post/<%=home[i].no%>"
-                    >Post →</a
+                    >comment →</a
                   >
                 </div>
               </div>
@@ -208,6 +216,19 @@
             }
           });
       };
+      //로그아웃
+      btnLogout.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        fetch("/", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then(() => {
+          alert("로그아웃");
+          location.href = "/login";
+        });
+      });
     </script>
   </body>
 </html>

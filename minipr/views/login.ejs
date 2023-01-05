@@ -23,7 +23,7 @@
         </div>
 
         <!-- Login Form -->
-        <form method="post" action="/login/login">
+        <form method="post" action="/login">
           <!-- action은 router 로보내준다 -->
           <input
             type="text"
@@ -39,7 +39,7 @@
             name="login"
             placeholder="password"
           />
-          <input type="submit" class="fadeIn fourth" value="Log In" />
+          <input type="button" class="fadeIn fourth" value="Log In" />
         </form>
 
         <!-- Remind Passowrd -->
@@ -54,6 +54,7 @@
         .addEventListener("click", function () {
           let data = { id: id.value, pw: pw.value };
           fetch("/login", {
+            //패치에서 보내서 app.js의 app.use의 주소로 간후에 router의 주소로 간다
             method: "post",
             headers: {
               "Content-Type": "application/json",
@@ -62,7 +63,7 @@
           })
             .then((res) => res.json())
             .then((res) => {
-              if (res.result == true) location.herf = "/home";
+              if (res.results == true) location.href = "/home";
               else {
                 alert("로그인 실패");
               }
