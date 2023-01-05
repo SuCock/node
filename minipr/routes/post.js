@@ -3,7 +3,8 @@ const pool = require("../pool");
 var router = express.Router();
 
 router.get("/:home_no", (req, res) => {
-  let sql_hm = "select * from home where no =?";
+  let sql_hm =
+    "select no, title,date_format(wrdate, '%Y-%m-%d')wrdate,nickname,category,content, media from home where no =?";
   let sql = "select * from post where home_no =?";
   pool.query(sql_hm, req.params.home_no, (err, home, fields) => {
     console.log(home);

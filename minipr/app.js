@@ -11,6 +11,7 @@ var usersRouter = require("./routes/users");
 var homeRouter = require("./routes/home");
 var postRouter = require("./routes/post");
 var loginRouter = require("./routes/login");
+var joinRouter = require("./routes/join");
 
 var app = express();
 
@@ -32,7 +33,7 @@ app.use(
     cookie: {
       httpOnly: true,
       //secure: true,
-      maxAge: 60000, //밀리초
+      maxAge: 30 * 24 * 60 * 60, //밀리초
     },
     store: new fileStore(),
   })
@@ -42,6 +43,7 @@ app.use("/users", usersRouter);
 app.use("/home", homeRouter);
 app.use("/post", postRouter);
 app.use("/login", loginRouter);
+app.use("/join", joinRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

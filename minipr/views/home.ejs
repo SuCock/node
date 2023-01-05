@@ -67,11 +67,8 @@
           <!-- Featured blog post-->
           <div class="card mb-4">
             <a href="#!"
-              ><img
-                class="card-img-top"
-                src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg"
-                alt="..."
-            /></a>
+              ><img class="card-img-top" src="<%=home[0].media%>" />
+            </a>
             <div class="card-body">
               <div class="small text-muted" id="wrdate">
                 <%=home[0].wrdate%>
@@ -91,10 +88,7 @@
               <!-- Blog post-->
               <div class="card mb-4">
                 <a href="#!"
-                  ><img
-                    class="card-img-top"
-                    src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg"
-                    alt="..."
+                  ><img class="card-img-top" src="<%=home[i].media%>"
                 /></a>
                 <div class="card-body">
                   <div class="small text-muted"><%=home[i].wrdate%></div>
@@ -163,7 +157,7 @@
 
           <!-- Side widget-->
           <div class="card mb-4">
-            <div class="card-header">Top 5 Movies</div>
+            <div class="card-header">today's Top 5 Movies</div>
             <div class="card-body" id="post1"></div>
           </div>
         </div>
@@ -209,7 +203,7 @@
           .then((res) => JSON.parse(res))
           .then((res) => {
             res = res.boxOfficeResult.dailyBoxOfficeList;
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < 5; i++) {
               document.getElementById("post1").innerHTML += `<div>${
                 i + 1 + "위 " + res[i].movieNm
               }</div>`;
@@ -232,6 +226,3 @@
     </script>
   </body>
 </html>
-Footer © 2023 GitHub, Inc. Footer navigation Terms Privacy Security Status Docs
-Contact GitHub Pricing API Training Blog About node/home.ejs at main ·
-SuCock/node · GitHub

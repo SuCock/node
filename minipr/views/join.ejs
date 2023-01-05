@@ -19,14 +19,16 @@
       <div class="input-form-backgroud row">
         <div class="input-form col-md-12 mx-auto">
           <h4 class="mb-3">Join membership</h4>
-          <form class="validation-form" novalidate>
+
+          <form class="validation-form" novalidate id="form">
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="name">name <span id="star">*</span></label>
                 <input
                   type="text"
                   class="form-control"
-                  id="name"
+                  id="username"
+                  name="username"
                   placeholder="이름을 입력해주세요"
                   value=""
                   required
@@ -34,16 +36,17 @@
                 <div class="invalid-feedback">이름을 입력해주세요.</div>
               </div>
               <div class="col-md-6 mb-3">
-                <label for="nickname">nick name <span id="star">*</span></label>
+                <label for="nickname">id <span id="star">*</span></label>
                 <input
                   type="text"
                   class="form-control"
-                  id="nickname"
-                  placeholder="닉네임을 입력해주세요"
+                  id="id"
+                  name="id"
+                  placeholder="아이디를 입력해주세요"
                   value=""
                   required
                 />
-                <div class="invalid-feedback">닉네임을 입력해주세요.</div>
+                <div class="invalid-feedback">아이디를 입력해주세요.</div>
               </div>
             </div>
 
@@ -53,6 +56,7 @@
                 type="email"
                 class="form-control"
                 id="email"
+                name="email"
                 placeholder="you@example.com"
                 required
               />
@@ -62,31 +66,22 @@
             <div class="mb-3">
               <label for="address">password <span id="star">*</span></label>
               <input
-                type="text"
+                type="password"
                 class="form-control"
-                id="password"
+                id="pw"
+                name="pw"
                 placeholder="비밀번호를 입력해주세요"
                 required
               />
               <div class="invalid-feedback">비밀번호를 입력해주세요.</div>
             </div>
 
-            <hr class="mb-4" />
-            <div class="custom-control custom-checkbox">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="aggrement"
-                required
-              />
-              <label class="custom-control-label" for="aggrement"
-                >개인정보 수집 및 이용에 동의합니다.<span id="star"
-                  >*</span
-                ></label
-              >
-            </div>
             <div class="mb-4"></div>
-            <button class="btn btn-primary btn-lg btn-block" type="submit">
+            <button
+              class="btn btn-primary btn-lg btn-block"
+              type="button"
+              id="signBtn"
+            >
               Welcome!
             </button>
           </form>
@@ -119,6 +114,28 @@
         },
         false
       );
+    </script>
+    <script>
+      signBtn.addEventListener("click", () => {
+        let data = {
+          username: username.value,
+          id: id.value,
+          email: email.value,
+          pw: pw.value,
+        };
+        fetch("/join", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then(() => {
+            alert("가입되었습니다");
+            location.href = "/login";
+          });
+      });
     </script>
   </body>
 </html>

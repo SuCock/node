@@ -63,19 +63,13 @@
               <h1 class="fw-bolder mb-1"><%=home[0].title%></h1>
 
               <!-- Post meta content-->
-              <div class="text-muted fst-italic mb-2" id="wrdate"></div>
-              <!-- Post categories-->
-
-     
-
+              <div class="text-muted fst-italic mb-2" id="wrdate"><%=home[0].wrdate%></div>
+              <!-- Post categories-->     
             </header>
             <!-- Preview image figure-->
             <figure class="mb-4">
               <img
-                class="img-fluid rounded"
-                src="https://dummyimage.com/900x400/ced4da/6c757d.jpg"
-                alt="..."
-              />
+                class="img-fluid rounded" src = "<%=home[0].media%>"/>
             </figure>
             <!-- Post content-->
           </article>
@@ -94,12 +88,13 @@
                   ></textarea>
                   <a
                 class="badge bg-secondary text-decoration-none link-light"
-                id="btnAdd"
+                id="btnAdd" onClick="window.location.reload()"
                 >Post</a>
                 <a class="badge bg-secondary text-decoration-none link-light "
-                 id = "btnAp" > Update</a>                  
+                 id = "btnAp" onClick="window.location.reload()"> Update</a>                  
                 </form>
                 <!-- Comment with nested comments-->
+                <div id = "commentlist">
                 <%for (let i = 0; i < post.length; i++) {%>
                 <div class="d-flex mb-4 one" >
                   <!-- Parent comment-->
@@ -121,13 +116,14 @@
                     <a class="badge bg-secondary text-decoration-none link-light btnone"
                     href="#!" data-id="<%=post[i].no%>">One</a>
                      <a class="badge bg-secondary text-decoration-none link-light btnDel"
-                     data-id="<%=post[i].no%>"
+                     data-id="<%=post[i].no%>" id = "del" onClick="window.location.reload()"
                      >Delete</a> <%}%>
               
                   </div>
                 </div>
               </div>
               <%}%>
+              </div>
             </div>
           </section>
         </div>
@@ -157,29 +153,10 @@
           </div>
           <!-- Categories widget-->
           <div class="card mb-4">
-            <div class="card-header">Categories</div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-sm-6">
-                  <ul class="list-unstyled mb-0">
-                    <li><a href="#!">Web Design</a></li>
-                    <li><a href="#!">HTML</a></li>
-                    <li><a href="#!">Freebies</a></li>
-                  </ul>
-                </div>
-                <div class="col-sm-6">
-                  <ul class="list-unstyled mb-0">
-                    <li><a href="#!">JavaScript</a></li>
-                    <li><a href="#!">CSS</a></li>
-                    <li><a href="#!">Tutorials</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
           </div>
           <!-- Side widget-->
           <div class="card mb-4">
-          <div class="card-header">Top 5 Movies</div>
+          <div class="card-header">today's Top 5 Movies</div>
             <div class="card-body" id="post1"></div>
           </div>
         </div>
@@ -227,7 +204,7 @@
           .then((res) => JSON.parse(res))
           .then((res) => {
             res = res.boxOfficeResult.dailyBoxOfficeList;
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < 5; i++) {
               document.getElementById("post1").innerHTML += `<div>${
                 i + 1 + "위 " + res[i].movieNm
               }</div>`;
@@ -292,14 +269,16 @@
           });
         })
         //삭제
-        document.querySelector(".parent").addEventListener("click",function(ev){
+        document.querySelector("#commentlist").addEventListener("click",function(ev){
          ev.preventDefault();
-         let no = ev.target.getAttribute("data-id")
-        fetch(`/post/one/${no}`, { 
-        method: "delete" })
-        .then((res) =>  res.json())
-        .then((res) => {alert("삭제완료")
+         if(ev.target.id == "del"){
+          let no = ev.target.getAttribute("data-id")
+          fetch(`/post/one/${no}`, { 
+          method: "delete" })
+          .then((res) =>  res.json())
+          .then((res) => {alert("삭제완료")
         })
+      }
       });
         //로그아웃
       btnLogout.addEventListener("click", function (ev) {

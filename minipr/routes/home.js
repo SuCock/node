@@ -4,7 +4,8 @@ var router = express.Router();
 
 //영화조회
 router.get("/", (req, res) => {
-  sql = "SELECT * FROM home";
+  sql =
+    "select no, title,date_format(wrdate, '%Y-%m-%d')wrdate,nickname,category,content, media from home";
   pool.query(sql, (err, home, fields) => {
     if (err) {
       console.log(err);
@@ -25,7 +26,11 @@ router.post("/search", (req, res) => {
       console.log(err);
     }
     if (home) {
-      res.render("home", { home: home });
+      res.render("home", {
+        home: home,
+        islogin: req.session.islogin,
+        id: req.session.userid,
+      }); //보낼페이지, 보낼데이터
     } else {
       res.send("검색한 제목이 없습니다.");
     }
